@@ -48,6 +48,8 @@ tensor_impl!(Tensor4D, [M, N, O, P]);
 
 #[cfg(test)]
 mod tests {
+    use crate::tests::assert_close;
+
     use super::*;
     use rand::{prelude::StdRng, SeedableRng};
 
@@ -94,10 +96,7 @@ mod tests {
         let mut rng = StdRng::seed_from_u64(0);
         let t = Tensor2D::new([[0.05, 0.1, 0.2], [0.3, 0.4, 0.5]]);
         let r = t.trace().dropout(0.6, &mut rng);
-        assert_eq!(
-            r.data(),
-            &[[0.12500001, 0.25000003, 0.0], [0.7500001, 1.0000001, 0.0]]
-        );
+        assert_close(r.data(), &[[0.125, 0.25, 0.0], [0.75, 1.0, 0.0]]);
         // NOTE: .exp() so we ensure result grad is used properly
         let gradients = r.exp().mean().backward();
         assert_eq!(

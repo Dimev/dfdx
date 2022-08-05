@@ -28,10 +28,16 @@ num-traits = "0.2.15"
 zip = "0.6.2"
 cblas-sys = { version = "0.1.4", optional = true }
 libc = { version = "0.2", optional = true }
+curl = { version = "0.4.44", optional = true }
+flate2 = { version = "1.0.24", optional = true }
+indicatif = { version = "0.17.0", optional = true }
+md5 = { version = "0.7.0", optional = true }
+tar = { version = "0.4.38", optional = true }
 
 [features]
-default = []
+default = ["datasets"]
 nightly = []
+datasets = ["dep:flate2", "dep:curl", "dep:indicatif", "dep:md5", "dep:tar"]
 cblas = ["dep:cblas-sys", "dep:libc"]
 mkl-static-iomp = ["cblas"]
 mkl-static-seq = ["cblas"]
@@ -40,8 +46,7 @@ mkl-dynamic-seq = ["cblas"]
 
 [dev-dependencies]
 tempfile = "3.3.0"
-mnist = "0.5.0"
-indicatif = "0.16.2"
+indicatif = "0.17.0"
 
 [build-dependencies]
 rustc_version = "0.4.0"

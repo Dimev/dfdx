@@ -96,6 +96,8 @@
 
 pub mod arrays;
 pub mod data;
+#[cfg(feature = "datasets")]
+pub mod datasets;
 pub mod devices;
 pub mod gradients;
 pub mod losses;
